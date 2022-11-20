@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Projects</title>
+    <link rel="stylesheet" href="{% static '/styles/main.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <img src="{% static 'Logo sefibox.png' %}"  width="50">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/peliculas">Películas</a>
+            </li>
+            <li>
+                <a href="/musica">Música</a>
+            </li>
+            <li>
+                <a href="/suscripciones">Suscripciones</a>
+            </li>
+            <li>
+                <a href="/user/details">Usuario</a>
+            </li>
+            <li>
+                <a href="/registrar">Registrar</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1 style="text-align:center">Detalles de usuario:</h1>
+
+<div>
+    <h1>{{user.username}}</h1>
+    <p>Nombre: {{user.first_name}}</p>
+    <p>Apellidos: {{user.last_name}}</p>
+    <p>Email: {{user.email}}</p>
+</div>
+
+
+{% endblock %}

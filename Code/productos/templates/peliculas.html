@@ -1,0 +1,23 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <h1 style="text-align:center">Películas</h1>
+    <form  action="{% url 'buscar_pelicula' %}" method="get">
+        {% csrf_token %}
+        <input type="text" name="q" placeholder="Buscar Películas">
+        <button type="submit">Buscar</button>
+    </form>
+    {% for pelicula in peliculas%}
+
+    <div>
+        <h1>{{pelicula.name}}</h1>
+        <p>Descripción: {{pelicula.description}}</p>
+        <p>Director: {{pelicula.director}}</p>
+        <p>Año de salida: {{pelicula.añoSalida}}</p>
+        <p>Categoría: {{pelicula.categoria}}</p>
+    </div>
+
+    {% endfor %}
+    
+{% endblock %}

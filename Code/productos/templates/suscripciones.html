@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <h1 style="text-align:center">Suscripciones</h1>
+
+    <form  action="{% url 'buscar_suscripcion' %}" method="get">
+        {% csrf_token %}
+        <input type="text" name="q" placeholder="Buscar Suscripciones">
+        <button type="submit">Buscar</button>
+      </form>
+
+    {% for suscripcion in suscripciones%}
+
+    <div>
+        <h1>{{suscripcion.name}}</h1>
+        <p>Descripción: {{suscripcion.description}}</p>
+        <p>Duración: {{suscripcion.duracion}}</p>
+        <p>Fecha inicio: {{suscripcion.fecha}}</p>
+        <p>Precio: {{suscripcion.precio}}</p>
+    </div>
+
+    {% endfor %}
+    
+{% endblock %}

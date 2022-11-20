@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <h1 style="text-align:center">Música</h1>
+    
+    <form  action="{% url 'buscar_cancion' %}" method="get">
+        {% csrf_token %}
+        <input type="text" name="q" placeholder="Buscar Canciones">
+        <button type="submit">Buscar</button>
+      </form>
+
+    {% for music in musica%}
+
+    <div>
+        <h1>{{music.name}}</h1>
+        <p>Director: {{music.autor}}</p>
+        <p>Duración: {{music.duracion}}</p>
+        <p>Fecha: {{music.fecha}}</p>
+        <p>Género: {{music.genero}}</p>
+    </div>
+
+    {% endfor %}
+    
+{% endblock %}
