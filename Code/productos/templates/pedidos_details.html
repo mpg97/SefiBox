@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div style="min-height: 500px;">
+<h1 style="text-align:center">Detalles de pedido:</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Idenficador:</th>
+            <th>Fecha:</th>
+            <th>Costo:</th>
+            <th>Notificado:</th>
+            <th></th>
+        </tr>
+</thead>
+<tbody>
+    {% for pedido in pedidos %}
+    
+    
+    <tr>
+        <td> {{pedido.id}}</td>
+        <td> {{pedido.created_ad}}</td>
+        <td></td>
+        <td>{{pedido.paid_amount}}</td>
+        <td>{{pedido.notified}}</td>
+        
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h1 style="text-align:center">Elementos:</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre:</th>
+            <th>Duración:</th>
+            <th>Cantidad:</th>
+            <th>Costo:</th>
+            <th></th>
+        </tr>
+</thead>
+<tbody>
+    {% for q in items %}
+    
+    {% for i in q %}
+    
+    <tr>
+        <td> {{i.suscripciones.name}}</td>
+        <td> {{i.suscripciones.duracion}}</td>
+        <td> {{i.cantidad}}</td>
+        <td> {{i.precio}}</td>
+            
+
+    </tr>
+    {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>
+
+ 
+<form action="sent" method="get">
+    <input type="button" value="Volver" class="backbutton" onclick="window.location.href='/buscar-pedido/'">
+</form>
+
+
+</div>
+
+{% endblock %}

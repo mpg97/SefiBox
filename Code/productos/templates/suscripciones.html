@@ -1,25 +1,105 @@
-{% extends 'layouts/base.html' %}
+<script type="text/javascript">
+    function makeTableScroll() {
+        // Constant retrieved from server-side via JSP
+        var maxRows = 5;
 
+        var table = document.getElementById('myTable');
+        var wrapper = table.parentNode;
+        var rowsInTable = table.rows.length;
+        var height = 0;
+        if (rowsInTable > maxRows) {
+            for (var i = 0; i < maxRows; i++) {
+                height += table.rows[i].clientHeight;
+            }
+            wrapper.style.height = height + "px";
+        }
+    }
+</script>
+{% extends 'layouts/base.html' %}
+{% include 'layouts/footer.html' %}
+{% load static %}
 {% block content %}
 
     <h1 style="text-align:center">Suscripciones</h1>
 
-    <form  action="{% url 'buscar_suscripcion' %}" method="get">
-        {% csrf_token %}
-        <input type="text" name="q" placeholder="Buscar Suscripciones">
-        <button type="submit">Buscar</button>
-      </form>
-
-    {% for suscripcion in suscripciones%}
-
     <div>
-        <h1>{{suscripcion.name}}</h1>
-        <p>Descripción: {{suscripcion.description}}</p>
-        <p>Duración: {{suscripcion.duracion}}</p>
-        <p>Fecha inicio: {{suscripcion.fecha}}</p>
-        <p>Precio: {{suscripcion.precio}}</p>
-    </div>
+        <div>
 
-    {% endfor %}
+            <form action="{% url 'buscar_suscripcion' %}" method="get">
+                {% csrf_token %}
+                <input type="text" name="q" placeholder="Buscar Suscripciones">
+                <button type="submit">Buscar</button>
+            </form>
+            
+            <body onload="makeTableScroll()">
+                <div class="scrollingTable">
+                    <table id="myTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Nombre suscripción
+                                </th>
+                                <th scope="col">
+                                    Descripción
+                                </th>
+                                <th scope="col">
+                                    Duración
+                                </th>
+                                <th scope="col">
+                                    Precio
+                                </th>
+                                <th scope="col">
+                                    Peliculas
+                                </th>
+                                <th scope="col">
+                                    Canciones
+                                </th>
+                                <th scope="col">
+                                    Añadir producto
+                                </th>
+                            </tr>
+                        </thead>
+                        {% for suscripcion in suscripciones %}
+                            <tr align="center">
+                                <td>
+                                    {{suscripcion.name}}
+                                </td>
+                                <td>
+                                    {{suscripcion.description}}
+                                </td>
+                                <td>
+                                    {{suscripcion.duracion}} mes/es
+                                </td>
+                                <td>
+                                    {{suscripcion.precio}} €
+                                </td>
+                                <td>
+                                    - 
+                                    {%for pelicula in suscripcion.peliculas.all%}
+                                        {{pelicula.name}} -
+                                    {%endfor%}
+                                </td>
+                                <td>
+                                    - 
+                                    {%for cancion in suscripcion.canciones.all%}
+                                        {{cancion.name}} -
+                                    {%endfor%}
+                                </td>
+                                <td>
+                                    <form action="{% url 'Add' suscripcion.id %}" method="get">
+                                        <input type="number" name="quantity" min="1" value="1" style="width: 50px;">
+                                        <button type="submit">Enviar al carrito</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </body>
+        </div>
+    </div>
+    
+
+<div style="min-height: 500px;"></div>
     
 {% endblock %}

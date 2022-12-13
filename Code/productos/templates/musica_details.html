@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <h1 style="text-align:center">Canción</h1>
+    <div class="musicDetail">
+        <div>
+            <img src="{{ musica.imagen.url }}" class="cardImg" />
+            <h1>{{musica.name}}</h1>
+            <h3>Director: {{musica.autor}}</h3>
+            <h3>Duración: {{musica.duracion}}</h3>
+            <h3>Fecha: {{musica.fecha}}</p>
+            <h3>Género: {{musica.genero}}</h3>
+        </div>        
+    </div>
+    <div style="min-height: 500px;"></div>
+{% endblock %}

@@ -1,14 +1,51 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-<h1 style="text-align:center">Detalles de usuario:</h1>
+<div style="min-height: 500px;">
+    <h1 style="text-align:center">Detalles de usuario:</h1>
 
-<div>
-    <h1>{{user.username}}</h1>
-    <p>Nombre: {{user.first_name}}</p>
-    <p>Apellidos: {{user.last_name}}</p>
-    <p>Email: {{user.email}}</p>
-</div>
+    <div>
+        <h1>{{user.username}}</h1>
+        <p>Nombre: {{user.first_name}}</p>
+        <p>Apellidos: {{user.last_name}}</p>
+        <p>Email: {{user.email}}</p>
+    </div>
+
+    {% if pedidos %}
+    <h1 style="text-align:center">Pedidos:</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Idenficador:</th>
+                <th>Fecha:</th>
+                <th>Costo:</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pedido in pedidos %}
+        
+        
+        <tr>
+            <td> {{pedido.id}}</td>
+            <td> {{pedido.created_ad}}</td>
+            <td></td>
+            <td>{{pedido.paid_amount}}</td>
+            <td><a href="pedido/detalles/{{pedido.id}}">Detalles</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+
+    
+    </table>
+
+{% endif %}
+
+    <form action="sent" method="get">
+        <input type="button" value="Volver" class="backbutton" onclick="window.location.href='/user/details'">
+    </form>
 
 
 {% endblock %}
+</div>

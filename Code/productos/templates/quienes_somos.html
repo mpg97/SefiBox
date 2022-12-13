@@ -1,0 +1,26 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Projects</title>
+    <link rel="stylesheet" href="{% static '/styles/main.css' %}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<div class="parrafo">
+    <h1 style="text-align:center">¿Quiénes somos? <img src="{% static 'Logo sefibox.png' %}" width="50" /></h1>
+    <br><p>Somos una web especializada en los servicios de streaming de música, películas y series mediante suscripciones, contando con un gran catálogo de productos y suscripciones disponibles y ofreciendo un servicio más personalizado para los usuarios.</p>
+    <p>En Octubre de 2022 se realizó el lanzamiento de nuestra web y desde entonces prestamos servicio a todos nuestros usuarios.</p>  
+    <p>Esta web nació por la necesidad de crear un producto que se ajustase a las necesidades de una asignatura de la Universidad de Sevilla llamada PGPI, y por tanto, nuestra sede se encuentra dentro de las instalaciones de la misma universidad, concretamente en la Escuela Técnica Superior de Ingeniería Informática.</p>
+    <p>Los creadores de la web son Francisco García de la Vega García, Sergio López Díaz, Roger Marín Saltó, Miguel Patón Gutiérrez, Álvaro Vega Rodríguez.</p>
+    
+</div>
+{% endblock %}

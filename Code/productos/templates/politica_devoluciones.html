@@ -1,0 +1,30 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Projects</title>
+    <link rel="stylesheet" href="{% static '/styles/main.css' %}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<div>
+    <h1 style="text-align:center">Política de devoluciones <img src="{% static 'Logo sefibox.png' %}" width="50" /></h1>
+    <br>
+    <p>Debido a las características de los productos y servicios vendidos en SefiBox, esta web no cuenta con la opción de realizar devoluciones
+        de las compras que se realicen ni las suscripciones canjeadas.
+        <br>
+        <br>
+        Deberá comprobar y asegurarse de la compra antes de realizar el pago, ya que si este 
+        se efectúa será definitivo y no podrá devolver la suscripción comprada, asi como el importe cobrado en el método de pago facilitado 
+        para la compra.
+    </p>
+</div>
+{% endblock %}

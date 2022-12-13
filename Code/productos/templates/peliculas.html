@@ -1,23 +1,78 @@
+<script type="text/javascript">
+    function makeTableScroll() {
+        // Constant retrieved from server-side via JSP
+        var maxRows = 5;
+
+        var table = document.getElementById('myTable');
+        var wrapper = table.parentNode;
+        var rowsInTable = table.rows.length;
+        var height = 0;
+        if (rowsInTable > maxRows) {
+            for (var i = 0; i < maxRows; i++) {
+                height += table.rows[i].clientHeight;
+            }
+            wrapper.style.height = height + "px";
+        }
+    }
+</script>
 {% extends 'layouts/base.html' %}
 
 {% block content %}
 
     <h1 style="text-align:center">Películas</h1>
+    
     <form  action="{% url 'buscar_pelicula' %}" method="get">
         {% csrf_token %}
-        <input type="text" name="q" placeholder="Buscar Películas">
+        <div class="form-group col-md-4">
+            <input type="text" name="q" placeholder="Buscar Películas">
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" class="form-control" name="categoria">
+                <option selected>Elige categoría</option>
+                {% for categoria in categorias %}
+                <option value="{{ categoria }}">{{ categoria }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <hr>
         <button type="submit">Buscar</button>
     </form>
-    {% for pelicula in peliculas%}
-
-    <div>
-        <h1>{{pelicula.name}}</h1>
-        <p>Descripción: {{pelicula.description}}</p>
-        <p>Director: {{pelicula.director}}</p>
-        <p>Año de salida: {{pelicula.añoSalida}}</p>
-        <p>Categoría: {{pelicula.categoria}}</p>
-    </div>
-
-    {% endfor %}
-    
+    <body onload="makeTableScroll()">
+        <div class="scrollingTable">
+            <table id="myTable">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            Imagen
+                        </th>
+                        <th scope="col">
+                            Nombre
+                        </th>
+                        <th scope="col">
+                            Director
+                        </th>
+                        <th scope="col">
+                            Categoría
+                        </th>
+                    </tr>
+                </thead>
+                {% for pelicula in peliculas %}
+                    <tr align="center">
+                        <td>
+                            <img src="{{ pelicula.imagen.url }}" style="width: 60px;"/>
+                        </td>
+                        <td>
+                            <a href="details/?id={{ pelicula.id }}">{{ pelicula.name }}</a>
+                        </td>
+                        <td>
+                            <a href="details/?id={{ pelicula.id }}">{{ pelicula.director }}</a>
+                        </td>
+                        <td>
+                            <a href="details/?id={{ pelicula.id }}">{{ pelicula.categoria }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+    <div style="min-height: 500px;"></div>
 {% endblock %}

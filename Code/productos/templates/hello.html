@@ -4,13 +4,56 @@
 
 {% block content %}
 
-    <h1 style="text-align:center">SefiBox</h1>
-
-    <img src="{% static 'Logo sefibox.png' %}" alt="" width="100">
-
+    <h1 style="text-align:center">SefiBox <img src="{% static 'Logo sefibox.png' %}" width="30" /></h1>
     <p>Bienvenido a SefiBox, esto es una plataforma de servicios de suscripción periódica de los siguientes productos:</p>
     <p>- Películas</p>
     <p>- Música</p>
-    <p>Se podrá suscribir a nuestros productos utilizando un producto o los dos a la vez.</p>
+    <p>Aquiera las suscripciones que más se adapten a usted.</p>
+    <br>
 
+    <h1 style="text-align:center">Nuestros productos</h1>
+    <form action="{% url 'buscar_producto' %}" method="get">
+        {% csrf_token %}
+        <div class="form-group col-md-4">
+            <p>Busque aquí lo que desee:</p>
+            <input type="text" name="q" placeholder="Buscar Productos">
+        </div>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div>
+        {% for escaparate in escaparates %}
+            {% if escaparate.mostrar == True %}
+                <h1 style="text-align:center">{{escaparate.titulo}}</h1>
+                
+                <div class="catalogo">
+                    {% for suscripcion in escaparate.suscripciones.all %}
+                        <div class="cat">
+                            <img src="{{ suscripcion.imagen.url }}" class="card-img-top" />
+                            <h2>{{ suscripcion.name }}</h2>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <div class="catalogo">
+                    {% for cancion in escaparate.canciones.all %}
+                        <div class="cat">
+                            <img src="{{ cancion.imagen.url }}" class="card-img-top" />
+                            <h2>{{ cancion.name }}</h2>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <div class="catalogo">
+                    {% for pelicula in escaparate.peliculas.all %}
+                        <div class="cat">
+                            <img src="{{ pelicula.imagen.url }}" class="card-img-top" />
+                            <h2>{{ pelicula.name }}</h2>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div style="min-height: 500px;">
 {% endblock %}

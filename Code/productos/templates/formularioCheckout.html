@@ -1,0 +1,94 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<script type="text/javascript">
+    function enableSending() {
+        document.checkoutform.submit.disabled = !document.checkoutform.terms.checked
+    }
+    function enableRegister() {
+        const checked = document.querySelector('#register');
+    }
+</script>
+
+<div>
+    <form action="/create-checkout-session/" method="POST" name="checkoutform">
+        {% csrf_token %}
+    <div>
+        <h1>Checkout</h1>
+        
+            <div><h2>Información de contacto</h2>
+                <div>
+                    <div>
+                        <label for="">Nombre</label>
+                        <input type="text" required="required"name="nombre">
+                    </div>
+                    <div>
+                        <label for="">Apellidos</label>
+                        <input type="text" required="required"name="apellidos">
+                    </div>
+                </div>
+                <div>
+                    <label >Email</label>
+                    <input type="email"  required="required"name="email">
+                </div>
+             
+            </div>
+            <input type="checkbox" name="terms" onclick="enableSending()">
+            <label for="terms">Aceptas los 
+                <a href="/terminos">términos y políticas</a> de SefiBox.
+            </label>
+            <div>Paymennt information</div>
+            <br>
+            <input type="checkbox" name="register" onclick="enableSending()">
+            <label for="terms">¿Deseas que se guarden tus datos para el pedido?
+            </label>
+
+    </div>
+
+    <div>
+        <h2>Summary:</h2>
+        <div>
+            <span>Total: </span>
+            <span>{{total_carrito}}</span>
+        </div>
+
+        <button id="checkout-button2" type="submit" name="submit" disabled>Proceder al pago</button>
+    </div>
+
+
+</form>
+</div>
+
+{% endblock %}
+
+
+<script type="text/javascript">
+    cosnt = csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    var stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}")
+    var checkoutButton = document.getElementById("checkout-button2")
+
+    checkoutButton.addEventListener("click", function() {
+        fetch("create-checkout-session/ ", {
+            method: "POST",
+            headers: {
+                'X-CSRFToken': csrftoken
+            }
+
+        })
+            .then(function (response){
+                return response.json();
+            })
+            .then(function (response){
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+
+            .then (function (result){
+                if (result.erro) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function (error) {
+                console.error("Error:",error)
+            });
+    });
+  </script>

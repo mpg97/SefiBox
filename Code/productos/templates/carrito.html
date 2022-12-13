@@ -1,0 +1,86 @@
+<div>
+<table>
+    <thead>
+        <tr>
+            <h3>CARRITO</h3>
+        </tr>
+    {% if request.session.carrito.items %}
+        <tr>
+            <th style="padding: 0 15px;">Id</th>
+            <th style="padding: 0 15px;">Nombre</th>
+            <th style="padding: 0 15px;">Precio Ud.</th>
+            <th style="padding: 0 15px;">Cantidad</th>
+            <th style="padding: 0 15px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+    {{ request.session.carrito.items.suscripcion_id }}
+    {% for key, value in request.session.carrito.items %}
+        <tr>
+            <td style="padding: 0 15px;">{{value.suscripcion_id}}</td>
+            <td style="padding: 0 15px;">{{value.name}}</td>
+            <td style="padding: 0 15px;">{{value.precio_unitario}} €</td>
+            <td style="padding: 0 15px;">{{value.cantidad}}</td>
+            <td style="padding: 0 15px;">
+                <button onclick="location.href='{% url 'Add' value.suscripcion_id %}'" type="button">+</button>
+                <button onclick="location.href='{% url 'Sub' value.suscripcion_id %}'" type="button">-</button>
+                <button onclick="location.href='{% url 'Del' value.suscripcion_id %}'" type="button">Borrar</button>
+            </td>
+        </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+        <td>
+            <div>No has añadido nada al carrito</div>
+        </td>
+    </tr>
+    {% endif %}
+    {% if request.session.carrito.items %}
+        <tr>
+            <th>Total:</th>
+            <td>{{total_carrito}} €</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+{% if request.session.carrito.items %}
+<hr>
+</div>
+<div>
+    <button onclick="location.href='{% url 'CLS' %}'" type="button">Limpiar</button>
+    <form action="/check" method="POST">{% csrf_token %}
+        <button id="checkout-button2" type="submit">Proceder al pago</button>
+    </form>
+    {% csrf_token %}
+</div>
+{% endif %}
+<script type="text/javascript">
+    cosnt = csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    var stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}")
+    var checkoutButton = document.getElementById("checkout-button2")
+
+    checkoutButton.addEventListener("click", function() {
+        fetch("create-checkout-session/ ", {
+            method: "POST",
+            headers: {
+                'X-CSRFToken': csrftoken
+            }
+
+        })
+            .then(function (response){
+                return response.json();
+            })
+            .then(function (response){
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+
+            .then (function (result){
+                if (result.erro) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function (error) {
+                console.error("Error:",error)
+            });
+    });
+  </script>

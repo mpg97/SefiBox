@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Projects</title>
+    <link rel="stylesheet" href="{% static '/styles/main.css' %}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<div>
+    <h1 style="text-align:center">Atención al cliente <img src="{% static 'Logo sefibox.png' %}" width="50" /></h1>
+    <br>
+    <p>Para cualquier duda, incidencia o consulta, pueden ponerse en contacto con nosotros a través del correo electrónico
+        <a href="">sefibox.info@gmail.com</a>.
+    </p>
+    <p>Uno de nuestros empleados responderá a la mayor brevedad posible a sus comunicaciones a través de ese email.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+
+{% extends 'layouts/base.html' %}
+
+    {% block content %}
+    <h1 style="text-align:center">Detalles de pedido:</h1>
+
+    <form action = "sent" method="get">
+        <label for="id">Introduce el id:</label>
+        <input id="id" type="text" name="id" value="{{ current_id }}">
+        <input type="submit" value="Ok">
+    </form>
+<div style="min-height: 500px;">
+</div>
+
+{% endblock %}

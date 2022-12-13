@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div style="min-height: 500px;">
+    <h1 style="text-align:center">No se encuentra usuario con ese ID</h1>
+
+    
+    <form action="sent" method="get">
+        <input type="button" value="Volver" class="backbutton" onclick="window.location.href='/user/details'">
+    </form>
+
+{% endblock %}
+</div>

@@ -1,0 +1,102 @@
+<script type="text/javascript">
+    var now = new Date();
+    document.getElementById('date-time').innerHTML=dt;
+</script>
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1 style="text-align:center">Detalles de pedido</h1>
+<div class="pedidoDetail" style="max-height: 400px;">
+    <div>
+        <h1>Identificador: {{pedido.id}}</h1>
+        <h3>Fecha de pedido: {{pedido.created_ad}}</h3>
+        <h3>Coste total: {{pedido.paid_amount}}</p>
+        <h3>Notificado: {% if pedido.notified == True %} Sí {% else %} No {% endif %}</h3>
+        {% if user_present is True  %}
+            <h3>Usuario: {{pedido.user.username}}</h3>
+            <h3>Email: {{pedido.user.email}}</h3>
+        {% endif %}
+    </div>        
+</div>
+<h1 style="text-align:center">Elementos del pedido</h1>
+<body onload="makeTableScroll()">
+    <div class="scrollingTable" style="max-height: 500px;">
+        <table id="myTable">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Nombre
+                    </th>
+                    <th scope="col">
+                        Duración
+                    </th>
+                    <th scope="col">
+                        Cantidad
+                    </th>
+                    <th scope="col">
+                        Coste
+                    </th>
+                    <th scope="col">
+                        Canjeado
+                    </th>
+                    <th scope="col">
+                        Fecha de canjeo
+                    </th>
+                    <th scope="col">
+                        Fecha fin validez
+                    </th>
+                    
+                </tr>
+            </thead>
+            {% for q in items %}
+                {% if q.end_date > now or q.end_date == null %}
+                    <tr align="center">
+                        <td>
+                            {{ q.suscripciones.name }}
+                        </td>
+                        <td>
+                            {{ q.suscripciones.duracion }}
+                        </td>
+                        <td>
+                            {{ q.cantidad }}
+                        </td>
+                        <td>
+                            {{ q.precio }}
+                        </td>
+                        <td>
+                            {% if q.redeemed == True %}
+                                Sí 
+                            {% else %}
+                                No 
+                            {% endif %}
+                        </td>
+                        {% if q.redeemed == True %}
+                            <td> {{q.redemption_date}}</td>
+                            <td> {{q.end_date}}</td>
+                        {% else %}
+                            <td> - </td>
+                            <td> - </td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+<form action="sent" method="get">
+    <input type="button" value="Volver" class="backbutton" onclick="window.location.href='/buscar-pedido/'">
+</form>
+{% if redeemed != True %}
+<form action="/buscar-pedido/activate/sent?id={{pedido.id}}" method="POST">{% csrf_token %}
+    <button id="activate-button" class="backbutton" type="submit">Activar suscripciones</button>
+</form>
+{% endif %}
+
+</div>
+
+
+
+
+
+{% endblock %}

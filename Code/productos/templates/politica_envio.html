@@ -1,0 +1,26 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Projects</title>
+    <link rel="stylesheet" href="{% static '/styles/main.css' %}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<div>
+    <h1 style="text-align:center">Política de envíos <img src="{% static 'Logo sefibox.png' %}" width="50" /></h1>
+    <br><p>Para todas las compras realizadas en SefiBox, se enviará un mail con toda la información relacionada a la compra
+         y los datos de las suscripciones adquiridas en un plazo máximo de 72 horas a la dirección de correo facilitada durante
+          el proceso de compra.
+        <br><br>Debido a que no se disponen de productos físicos en SefiBox no se cobran gastos de envío.
+    </p>
+</div>
+{% endblock %}

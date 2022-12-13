@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CARRITO_SESSION_ID = 'carrito'
 
 # Application definition
 
@@ -63,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'productos.context_processor.total_carrito',
             ],
         },
     },
@@ -116,9 +118,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'productos/static'),)
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+MEDIA_ROOT = BASE_DIR / "productos" 
 
 
 
@@ -126,3 +131,18 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+STRIPE_PUBLIC_KEY = "pk_test_51M85cNFyvoFpnt1iUqZEaKYTdzPgqwcfwwCvNP4fBqeovKVVlNDLSB4QyXm4GpYoGhJvhqLNpSEqvsUizlwascjE00F2JOxaca"
+STRIPE_SECRET_KEY ='sk_test_51M85cNFyvoFpnt1i726GLSzkeLmJKxoju3qsUZgGq05Me5lx3lvgEEjKbpJsQBULmka9IvNtYhHx6cWte2ERaGYu00GB9D4tN4'
+
+STRIPE_WEBHOOK_SECRET = ""
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'sefibox.info@gmail.com'
+EMAIL_HOST_PASSWORD = 'gwoakviracdbmvbr'
+# EMAIL_HOST_PASSWORD = 'adminsefibox'
+EMAIL_USE_TLS = True

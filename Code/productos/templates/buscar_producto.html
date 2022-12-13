@@ -1,0 +1,43 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <h1 style="text-align:center">SefiBox <img src="{% static 'Logo sefibox.png' %}" width="30" /></h1>
+
+    <form action="{% url 'buscar_producto' %}" method="get">
+        {% csrf_token %}
+        <div class="form-group col-md-4">
+            <p>Busque aquí lo que desee:</p>
+            <input type="text" name="q" placeholder="Buscar Productos">
+        </div>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <h1 style="text-align:center">Nuestros productos</h1>
+    <div class="catalogo" style="display: contents;">
+        {% for music in musica %}
+            <div class="cat">
+                <img src="{{ music.imagen.url }}" class="card-img-top" />
+                <h1>{{music.name}}</h1>
+                <p>Director: {{music.autor}}</p>
+                <p>Duración: {{music.duracion}}</p>
+                <p>Fecha: {{music.fecha}}</p>
+                <p>Género: {{music.genero}}</p>
+            </div>
+        {% endfor %}
+
+        {% for pelicula in peliculas %}
+            <div class="cat">
+                <img src="{{pelicula.imagen.url }}" class="card-img-top" />
+                <h1>{{pelicula.name}}</h1>
+                <p>Descripción: {{pelicula.description}}</p>
+                <p>Director: {{pelicula.director}}</p>
+                <p>Año de salida: {{pelicula.añoSalida}}</p>
+                <p>Categoría: {{pelicula.categoria}}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

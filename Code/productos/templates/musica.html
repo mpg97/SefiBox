@@ -1,25 +1,78 @@
+<script type="text/javascript">
+    function makeTableScroll() {
+        // Constant retrieved from server-side via JSP
+        var maxRows = 5;
+
+        var table = document.getElementById('myTable');
+        var wrapper = table.parentNode;
+        var rowsInTable = table.rows.length;
+        var height = 0;
+        if (rowsInTable > maxRows) {
+            for (var i = 0; i < maxRows; i++) {
+                height += table.rows[i].clientHeight;
+            }
+            wrapper.style.height = height + "px";
+        }
+    }
+</script>
 {% extends 'layouts/base.html' %}
 
 {% block content %}
 
     <h1 style="text-align:center">Música</h1>
     
-    <form  action="{% url 'buscar_cancion' %}" method="get">
+    <form action="{% url 'buscar_cancion' %}" method="get">
         {% csrf_token %}
-        <input type="text" name="q" placeholder="Buscar Canciones">
+        <div class="form-group col-md-4">
+            <input type="text" name="q" placeholder="Buscar Canciones">
+            <label for="genero">Género:</label>
+            <select id="genero" class="form-control" name="genero">
+                <option selected>Elige género</option>
+                {% for genero in generos %}
+                <option value="{{ genero }}">{{ genero }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <hr>
         <button type="submit">Buscar</button>
-      </form>
-
-    {% for music in musica%}
-
-    <div>
-        <h1>{{music.name}}</h1>
-        <p>Director: {{music.autor}}</p>
-        <p>Duración: {{music.duracion}}</p>
-        <p>Fecha: {{music.fecha}}</p>
-        <p>Género: {{music.genero}}</p>
-    </div>
-
-    {% endfor %}
-    
+    </form>
+    <body onload="makeTableScroll()">
+        <div class="scrollingTable">
+            <table id="myTable">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            Imagen
+                        </th>
+                        <th scope="col">
+                            Nombre
+                        </th>
+                        <th scope="col">
+                            Autor
+                        </th>
+                        <th scope="col">
+                            Genero
+                        </th>
+                    </tr>
+                </thead>
+                {% for music in musica %}
+                    <tr align="center">
+                        <td>
+                            <img src="{{ music.imagen.url }}" style="height: 60px; width: 60px;"/>
+                        </td>
+                        <td>
+                            <a href="details/?id={{ music.id }}">{{ music.name }}</a>
+                        </td>
+                        <td>
+                            <a href="details/?id={{ music.id }}">{{ music.autor }}</a>
+                        </td>
+                        <td>
+                            <a href="details/?id={{ music.id }}">{{ music.genero }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+    <div style="min-height: 500px;"></div>
 {% endblock %}

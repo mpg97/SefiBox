@@ -1,0 +1,78 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Projects</title>
+    <link rel="stylesheet" href="{% static '/styles/main.css' %}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<div>
+    <h1 style="text-align:center">Terminos y Servicios <img src="{% static 'Logo sefibox.png' %}" width="50" /></h1>
+    <br><p>SefiBox ofrece un servicio de suscripciones personalizadas que permite a nuestros usuarios acceder 
+        a contenidos de entretenimiento como música, serie o películas a través de esta web.
+    </p>
+    <h3>1. Suscripciones</h3>
+    <p>Las suscripciones compradas, independientemente de los productos que contengan, continuarán disponibles 
+        para su uso hasta su conclusión. Para utilizar el servicio de SefiBox, debes tener acceso a internet y un 
+        dispositivo con navegador web. Para la compra de suscripciones debe introducir un método de pago válido y vigente, 
+        que puedes modificar durante la compra. Al realizar la compra nos autorizas a cargar el importe de suscripción 
+        correspondiente al seleccionado en su método de pago.
+    </p>
+    <h3>2. Ofertas promocionales</h3>
+    <p>En ocasiones, te ofrecemos promociones, planes o suscripciones especiales. SefiBox determina que productos serán 
+        incluidos en las ofertas y nos reservamos el derecho de anular la Ofertas en cualquier momento que consideremos oportuno.
+    </p>
+    <h3>3. Facturación y cancelación</h3>
+    <p>Para utilizar las suscripciones de SefiBox, debes proporcionar un método de pago válido y vigente. En caso de que el 
+        método de pago proporcionado sea rechazado, se solicitará un nuevo método de pago válido y vigente. Si no fuese posible 
+        realizar el pago, puede cancelar el proceso de compra en la pasarela de pago.
+        <br>
+        En SefiBox, debido a la naturaleza de nuestro servicio, una vez realizada la compra de una suscripción no puede realizarse 
+        la cancelación de la compra (si aún no se ha canjeado la suscripción), ni la devolución de la suscripción una vez canjeada.
+    </p>
+    <h3>4. Avisos legales</h3>
+    <p>El servicio de SefiBox, incluido todo el contenido proporcionado en dicho servicio, está protegido por derechos de autor, 
+        marcas comerciales, secretos comerciales o por otras leyes y tratados de propiedad intelectual.<br><br>
+
+        <b>Derechos de autor</b><br>
+        Los derechos de autor de las series y películas de nuestro servicio son propiedad de un gran número de excelentes productores.
+         Si crees que se han infringido tus derechos de autor o los de otras personas en el servicio de SefiBox, notifícanoslo mediante
+         el email de Atención al Cliente.<br><br>
+        
+        <b>Marcas comerciales</b><br>
+        SefiBox y el logotipo son marcas comerciales de SefiBox.<br>
+        
+        Si no te hemos concedido permiso, no utilices las marcas de SefiBox como propias ni de ninguna otra forma que implique el patrocinio
+         o la recomendación de SefiBox.<br>
+        
+        Un producto con la marca o el logotipo de SefiBox es una representación de SefiBox. A menos que seas uno de nuestros licenciatarios,
+         no permitimos que nadie fabrique, venda o regale nada con nuestro nombre o logotipo.<br><br>
+        
+        <b>Avisos de terceros</b><br>
+        Es posible que las licencias del software instalado en los dispositivos listos para SefiBox con los que ver en streaming el contenido
+         de SefiBox sean de software de código abierto o libre (Software de código abierto) o de software comercial autorizado por terceros a
+          SefiBox (Software comercial). Los Términos de uso de SefiBox no alteran los derechos y obligaciones que puedas tener conforme a dichas
+           licencias de Software de código abierto. Si deseas más información sobre el Software de código abierto y el Software comercial, 
+           incluidos los términos de licencia, las confirmaciones necesarias y los avisos, podrás obtenerla aquí.<br>
+        
+        
+    </p>
+    <h3>5. Disposiciones varias</h3>
+    <p>5.1 Estos Términos de uso se regirán e interpretarán de acuerdo con la legislación de España</p>
+    <p>5.2 Para obtener más información sobre nuestros servicios o resolver cualquier duda o incidencia de nuestra web, visite la 
+        sección de Atención al Cliente, donde se facilita el contacto con nuestro equipo.
+    </p>
+    <br><br><br>
+    <p>Última actualización: 3 de diciembre de 2022</p>
+</div>
+{% endblock %}

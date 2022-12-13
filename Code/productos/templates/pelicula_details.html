@@ -1,0 +1,18 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <h1 style="text-align:center">Película</h1>
+    <div class="musicDetail">
+        <div>
+            <img src="{{pelicula.imagen.url }}" class="cardImgFilm" />
+            <h1>{{pelicula.name}}</h1>
+            <h3>Descripción: {{pelicula.description}}</h3>
+            <h3>Director: {{pelicula.director}}</p>
+            <h3>Año de salida: {{pelicula.añoSalida}}</h3>
+            <h3>Duración: {{pelicula.duration}}</h3>
+            <h3>Categoría: {{pelicula.categoria}}</h3>
+        </div>        
+    </div>
+    <div style="min-height: 500px;"></div>
+{% endblock %}
